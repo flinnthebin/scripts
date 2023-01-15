@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Check if an argument is passed
+if [ $# -eq 0 ]; then
+    echo "Error: No argument passed. Please pass the file name as an argument."
+    exit 1
+fi
+
+# Set the file name to a variable and remove leading and trailing whitespace
+file_name="$(echo -e "$1" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+
+# Change the internal field separator to handle spaces in the filename
+IFS=$'\n'
+
+# Rename the file
+mv $file_name $(echo $file_name | tr -s '[:punct:]' '-' | tr '[:upper:]' '[:lower:]')
+

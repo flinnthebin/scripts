@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+
+import os
+import sys
+
+def rename_all(directory):
+    # rename the passed directory
+    new_name = directory.strip().lower().replace(" ", "-").replace("_", "-")
+    os.rename(directory, new_name)
+    directory = new_name
+    # iterate through all subdirectories and files
+    for dirpath, dirnames, filenames in os.walk(directory):
+        for dirname in dirnames:
+            old_name = os.path.join(dirpath, dirname)
+            new_name = os.path.join(dirpath, dirname.strip().lower().replace(" ", "-").replace("_", "-"))
+            os.rename(old_name, new_name)
+        for filename in filenames:
+            old_name = os.path.join(dirpath, filename)
+            new_name = os.path.join(dirpath, filename.strip().lower().replace(" ", "-").replace("_", "-").replace(".", ""))
+            os.rename(old_name, new_name)
+
+if __name__ == '__main__':
+    directory = sys.argv[1]
+    rename_all(directory)

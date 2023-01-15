@@ -16,9 +16,11 @@ def rename_all(directory):
             os.rename(old_name, new_name)
         for filename in filenames:
             old_name = os.path.join(dirpath, filename)
-            new_name = os.path.join(dirpath, filename.strip().lower().replace(" ", "-").replace("_", "-").replace(".", ""))
+            base, ext = os.path.splitext(filename)
+            new_name = os.path.join(dirpath, base.strip().lower().replace(" ", "-").replace("_", "-") + ext)
             os.rename(old_name, new_name)
 
 if __name__ == '__main__':
     directory = sys.argv[1]
     rename_all(directory)
+

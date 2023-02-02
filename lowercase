@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 
+# lowercase - remaps directories and files to kebab-case
+# kebab-case was chosen as it is not commonly associated with
+# programming languages, so linux filesystem organising seems nice
+# intent is to simplify and codify filesystem navigation
+
 import os
 import sys
 

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# prompt - changes the default prompt to my personal preference
+# day of week, month, datetime DD:HH:MM:SS [number of files in pwd] (green)
+# prompt text and response text (purple)
+
+export PS1="\033[0;32m\]\d:\t [\$(ls | wc -l)]:\$ \033[0;35m\]"

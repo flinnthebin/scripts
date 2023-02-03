@@ -13,8 +13,8 @@ def rename_all(directory):
   new_name = directory.strip().lower().replace(" ", "-").replace("_", "-")
   os.rename(directory, new_name)
   directory = new_name
-  # iterate through all 1 level of subdirectories and files
-  # TODO: implement recursion for full traversal
+  
+  # recursively traverse directories
   for dirpath, dirnames, filenames in os.walk(directory):
     for dirname in dirnames:
       old_name = os.path.join(dirpath, dirname)
@@ -32,4 +32,3 @@ if __name__ == '__main__':
     sys.exit()
   directory = sys.argv[1]
   rename_all(directory)
-

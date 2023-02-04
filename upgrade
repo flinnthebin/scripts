@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# distribution upgrade terminal command debian/ubuntu
+# usage: chmod 755 upgrade
+# add to PATH variable or cp upgrade /usr/bin/
+
+sudo apt update && sudo apt dist-upgrade

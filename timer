@@ -1,46 +1,35 @@
-#!/bin/bash
+#!/usr/bin/python3
 
 # timer for multitasking
 # change x to the desired number of minutes to count down from or
 # define y and set a timer for a specific time of day based on your
 # regional settings
 
-function usage {
-  echo "Usage: $0 [OPTION]..."
-  echo "Set a timer for x minutes or a specific time and display a message."
-  echo ""
-  echo "  -x MINUTES       set timer for MINUTES"
-  echo "  -y TIME          set timer for specific TIME in format 'HH:MM'"
-  echo "  -m MESSAGE       set message to display"
-  echo "  --help           display this help and exit"
-  echo ""
-  exit 1
-}
+# TODO: terminal doesn't pop up over current window. fix.
 
-while [ $# -gt 0 ]; do
-  case "$1" in
-    -x) x="$2"; shift 2;;
-    -y) y="$2"; shift 2;;
-    -m) message="$2"; shift 2;;
-    --help) usage;;
-    *) break;;
-  esac
-done
+import argparse
+import time
+import subprocess
 
-if [[ -z "$x" && -z "$y" ]]; then
-  usage
-fi
+def main():
+    parser = argparse.ArgumentParser(description='Set a timer for x minutes or a specific time and display a message.')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-x', type=int, help='set timer for MINUTES')
+    group.add_argument('-y', type=str, help='set timer for specific TIME in format HH:MM')
+    parser.add_argument('-m', type=str, required=True, help='set message to display')
+    args = parser.parse_args()
 
-if [[ -n "$y" ]]; then
-  time="$y"
-  y=$(date +%s --date="$time")
-else
-  y=$(date +%s --date="23:59")
-  time="23:59"
-fi
+    if args.x:
+        seconds = args.x * 60
+    else:
+        t = time.strptime(args.y, '%H:%M')
+        target = time.mktime(t)
+        current = time.mktime(time.localtime())
+        seconds = target - current
 
-current=$(date +%s)
+    time.sleep(seconds)
+    subprocess.run(['gnome-terminal', '--', 'sh', '-c', f'echo "{args.m}"; read'])
 
-sleep $((y-current))
+if __name__ == '__main__':
+    main()
 
-gnome-terminal --command "echo '$message'; read"

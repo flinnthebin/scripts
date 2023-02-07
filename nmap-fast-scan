@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# nmap-fast-scan - my most commonly used nmap command
+# as with software and carpentry, if you are going to 
+# do something more than three times, make a jig to ensure
+# your work is consistent and accurate. cheers frenchy.
+
+
+usage() {
+    echo "Usage: nmap-fast-scan <filename> <ipaddress>"
+    echo "  filename: The file name to save the nmap scan results"
+    echo "  ipaddress: The target IP address to scan"
+}
+
+if [ $# -ne 2 ]; then
+    usage
+    exit 1
+fi
+
+filename=$1
+ipaddress=$2
+
+sudo nmap -sC -sV -Pn -T4 -oA ~/.nmap/$filename $ipaddress
+
+

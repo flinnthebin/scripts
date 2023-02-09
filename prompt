@@ -6,5 +6,10 @@
 # adds purple output to shell commands (ls)
 # need refinements on fi colours
 
-export PS1="\033[0;32m\]\d:\t [\$(ls | wc -l)]:\$ \033[0;35m\]"
 LS_COLORS=$LS_COLORS:'fi=0;35':'di=1;35' ; export LS_COLORS
+TUN0_IP=$(ifconfig tun0 | grep 'inet ' | awk '{print $2}')
+WLAN0_IP=$(ifconfig wlan0 | grep 'inet ' | awk '{print $2}')
+USER=$(whoami)
+HOST=$(hostname)
+PROMPT_COMMAND="echo -ne '\033[0;32m[\033[0;34m$TUN0_IP\033[0;32m]-[\033[0;34m$WLAN0_IP\033[0;32m]-[\033[0;36m$USER\033[0;32m@\033[0;31m$HOST\033[0;32m]-[\033[1;37m$PWD\033[0;32m]' ;"
+PS1="\n\033[0;32m[\033[0;36m\$(ls | wc -l)\033[0;32m]\033[0;35m \$ \033[0m "

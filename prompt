@@ -1,13 +1,18 @@
 #!/bin/bash
 
-# prompt - changes the default prompt to my personal preference
-# day of week, month, datetime DD:HH:MM:SS [number of files in pwd] (green)
-# stdin/stdout/stderr (purple)
-# adds purple output to shell commands (ls)
-# need refinements on fi colours
+# my personal preference, inspired by kali linux, assisted by google and chatGPT
+# spine: []-[]-[]-[] (green)
+# prompt_command:
+# vpn: (blue x if no connection)
+# ip (blue)
+# user (cyan) @ hostname (red)
+# pwd (white)
+# prompt:
+# spine: [] (green)
+# prompt and output (purple)
 
 LS_COLORS=$LS_COLORS:'fi=0;35':'di=1;35' ; export LS_COLORS
-TUN0_IP=$(ifconfig tun0 | grep 'inet ' | awk '{print $2}')
+TUN0_IP=$(ifconfig tun0 | grep 'inet ' | awk '{print $2}') && TUN0_IP="no vpn connection"
 WLAN0_IP=$(ifconfig wlan0 | grep 'inet ' | awk '{print $2}')
 USER=$(whoami)
 HOST=$(hostname)

@@ -8,19 +8,27 @@
 import os
 import sys
 
-def confirmation():
-confirm = input(f"do you want to rename the following directory tree to kebab-case? [y/n]")
-if confirm.lower() == "y":
-        try:
-            
-    else:
-        print("would be a lot cooler if you did.")
+def usage():
+  if len(sys.argv) < 2:
+    print("""lowercase - a tool to remap directories and files to kebab case.
+    usage: lowercase <directory>""")
+    sys.exit(1)
+
+def confirmation(argv1):
+  confirm = input(f"do you want to rename the following directory tree to kebab-case? [y/n]")
+  if confirm.lower() == "y":
+    try:
+      rename_all(argv1, dirdepth=0)
+    except:
+      print("Something went wrong while renaming the files.")
+  else:
+    print("would be a lot cooler if you did.")
 
 def rename(current_name, new_name):
-try:
+  try:
     os.rename(current_name, new_name)
-    except PermissionError as e:
-      print("Permission Error: ", e)
+  except PermissionError as e:
+    print("Permission Error: ", e)
 
 def rename_all(directory, dirdepth=0):
   try:
@@ -45,3 +53,8 @@ def rename_all(directory, dirdepth=0):
       base, ext = os.path.splitext(filename)
       new_name = os.path.join(dirpath, base.strip().lower().replace(" ", "-").replace("_", "-") + ext)
       rename(old_name, new_name)
+
+if __name__ == "__main__":
+  if usage():
+    argv1 = sys.argv[1]
+    confirmation(argv1)

@@ -8,27 +8,29 @@
 import os
 import sys
 
-def rename_all(directory):
+def rename(current_name, new_name):
+    try:
+        os.rename(current_name, new_name)
+    except PermissionError as e:
+        print("Permission Error: ", e)
+
+def rename_all(directory, dirdepth=0):
   # rename root directory
   new_name = directory.strip().lower().replace(" ", "-").replace("_", "-")
-  os.rename(directory, new_name)
+  rename(directory, new_name)
   directory = new_name
-  
+
   # recursively traverse directories
   for dirpath, dirnames, filenames in os.walk(directory):
     for dirname in dirnames:
       old_name = os.path.join(dirpath, dirname)
       new_name = os.path.join(dirpath, dirname.strip().lower().replace(" ", "-").replace("_", "-"))
-      os.rename(old_name, new_name)
+      rename(old_name, new_name)
+      if dirdepth < 5:
+        rename_all(new_name, dirdepth=dirdepth + 1)
     for filename in filenames:
       old_name = os.path.join(dirpath, filename)
       base, ext = os.path.splitext(filename)
       new_name = os.path.join(dirpath, base.strip().lower().replace(" ", "-").replace("_", "-") + ext)
-      os.rename(old_name, new_name)
+      rename(old_name, new_name)
 
-if __name__ == '__main__':
-  if len(sys.argv) < 2:
-    print("Usage: lowercase <directory>")
-    sys.exit()
-  directory = sys.argv[1]
-  rename_all(directory)

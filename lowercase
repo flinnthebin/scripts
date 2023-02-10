@@ -8,11 +8,19 @@
 import os
 import sys
 
+def confirmation():
+confirm = input(f"do you want to rename the following directory tree to kebab-case? [y/n]")
+if confirm.lower() == "y":
+        try:
+            
+    else:
+        print("would be a lot cooler if you did.")
+
 def rename(current_name, new_name):
-    try:
-        os.rename(current_name, new_name)
+try:
+    os.rename(current_name, new_name)
     except PermissionError as e:
-        print("Permission Error: ", e)
+      print("Permission Error: ", e)
 
 def rename_all(directory, dirdepth=0):
   try:

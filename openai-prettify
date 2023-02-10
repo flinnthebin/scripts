@@ -1,0 +1,40 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <input_file>"
+    exit 1
+fi
+
+input_file=$1
+
+# Use jq to extract the text field and store it in a variable
+text=$(jq -r '.choices[0].text' $input_file)
+
+# Use jq to extract all other fields and store them in variables
+id=$(jq -r '.id' $input_file)
+object=$(jq -r '.object' $input_file)
+created=$(jq -r '.created' $input_file)
+model=$(jq -r '.model' $input_file)
+prompt_tokens=$(jq -r '.usage.prompt_tokens' $input_file)
+completion_tokens=$(jq -r '.usage.completion_tokens' $input_file)
+total_tokens=$(jq -r '.usage.total_tokens' $input_file)
+output_file="$input_file.pretty"
+
+# Print the extracted fields with newlines
+{
+echo "id: $id"
+echo "object: $object"
+echo "created: $created"
+echo "model: $model"
+echo
+echo "**************"
+echo
+echo "text: $text"
+echo
+echo "**************"
+echo
+echo "usage:"
+echo "  prompt_tokens: $prompt_tokens"
+echo "  completion_tokens: $completion_tokens"
+echo "  total_tokens: $total_tokens"
+} > $output_file

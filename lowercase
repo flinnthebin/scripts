@@ -28,7 +28,7 @@ def rename(current_name, new_name):
   try:
     os.rename(current_name, new_name)
   except PermissionError as e:
-    print("Permission Error: ", e)
+    print("Permission Error: ", e)  
 
 def rename_all(directory, dirdepth=0):
   try:

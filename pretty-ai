@@ -2,7 +2,7 @@
 
 # pretty-ai is a tool to allow users to easily communicate with the openai
 
-prompt=""
+prompt="from the description 'pretty-ai is a tool to allow users to easily communicate with the openai', write a paragraph introduction for the tool as an easy way for new linux users to interact with the openai api"
 ai="https://api.openai.com/v1/completions"
 
 if [ $# -ne 2 ]; then
@@ -41,25 +41,17 @@ echo "created: $created"
 echo "model: $model"
 echo
 echo "************************************************** "
-echo "                     __  __                    _   "
-echo "    ____  ________  / /_/ /___  __      ____ _(_)  "
-echo `   / __ \/ ___/ _ \/ __/ __/ / / /_____/ __ `/ /   `
-echo "  / /_/ / /  /  __/ /_/ /_/ /_/ /_____/ /_/ / /    "
-echo " / .___/_/   \___/\__/\__/\__, /      \__,_/_/     "
-echo "/_/                      /____/                    "
-echo "                                                   "
+echo                  
+echo                    pretty-ai     
+echo
 echo "************************************************** "
 echo 
 echo "text: $text"
 echo
 echo "************************************************** "
-echo "                     __  __                    _   "
-echo "    ____  ________  / /_/ /___  __      ____ _(_)  "
-echo `   / __ \/ ___/ _ \/ __/ __/ / / /_____/ __ `/ /   `
-echo "  / /_/ / /  /  __/ /_/ /_/ /_/ /_____/ /_/ / /    "
-echo " / .___/_/   \___/\__/\__/\__, /      \__,_/_/     "
-echo "/_/                      /____/                    "
-echo "                                                   "
+echo                  
+echo                    pretty-ai     
+echo
 echo "************************************************** "
 echo
 echo "usage:"

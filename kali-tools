@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# kali-tools - a bash script designed to add the suite of Kali tools to an Ubuntu system
+# designed to make installation and maintenance of kali packages possible through apt
+# this script requires root privileges to run
+
+# noob friendly 
+sudo apt update && sudo apt dist-upgrade
+# download and add public key for kali to apt list of trusted keys
+sudo wget 'https://archive.kali.org/archive-key.asc'
+sudo apt-key add archive-key.asc
+# add kali package repo to apt
+sudo sh -c "echo 'deb https://http.kali.org/kali kali-rolling main non-free contrib' > /etc/apt/sources.list.d/kali.list"
+# set priority of kali-rolling (default 50)
+sudo sh -c "echo 'Package: *'>/etc/apt/preferences.d/kali.conf; echo 'Pin: release a=kali-rolling'>>/etc/apt/preferences.d/kali.conf; echo 'Pin-Priority: 50'>>/etc/apt/preferences.d/kali.conf"
+# install metasploit
+cd /opt
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfembeddedruby
+chmod +x msfembeddedruby
+sudo ./msfembeddedruby
+cd
+# install kali tools
+programs=(0trace ace aircrack-ng apache-users arping arp-scan asleap autopsy btscanner braa burpsuite binwalk bed bluelog blueranger bluesnarfer backdoor-factory beef calpel chirp chkrootkit cisco-auditing-tool cisco-global-exploiter cisco-ocs cisco-torch clang commix copy-router-config cowpatty crunch cutycapt cymothoa davtest dc3dd dcfldd ddnschef dnsenum dnsrecon dnsmap dnstracer dnswalk dnsrecon dex2jar dirb dirbuster dmitry driftnet eapmd5pass edb-debugger enumiax extundelete fcrackzip fern-wifi-cracker fierce fping foremost galleta gobuster guymager hackrf hping3 iaxflood irpas iodine jadx jboss-autopwn john joomscan jsql kali-menu kismet lbd leg ion lynis magicrescue mdk3 mfoc mfcuk miredo missidentify mdb-sql mitmproxy masscan medusa netsniff-ng netdiscover nikto netmask nmap ophcrack p0f padbuster pasco pdf-parser pdfid pev pipal pixiewps plecost proxychains4 proxytunnel pwnat recordmydesktop redfang recoverjpeg reglookup responder rifiuti rifiuti2 rtpmixsound rtpflood rtpinsertsound radare2 recon-ng reglookup responder rsmangler safecopy scrounge-ntfs sipcrack siparmyknife smbmap smtp-user-enum ssldump sslh sslscan sqlmap sqlninja sqldic sqlmap sslsniff statsgen stunnel4 sucrack swaks t50 termineter termineter thc-pptp-bruter tlssled twofi unicornscan uniscan udptunnel webscarab weevely whatweb wafw00f wifite wireshark wpscan xprobe2 xsser yersinia)
+sudo apt install "${programs[@]}" -y

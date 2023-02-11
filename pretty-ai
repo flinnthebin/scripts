@@ -17,7 +17,7 @@ api_key=$(cat $api_key_file)
 curl $ai \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer $api_key" \
--d "{\"model\": \"text-davinci-003\", \"prompt\": \"$prompt\", \"temperature\": 0, \"max_tokens\": 7}" \
+-d "{\"model\": \"text-davinci-003\", \"prompt\": \"$prompt\", \"temperature\": 5, \"max_tokens\": 15}" \
 -o $output_file
 
 # Use jq to extract the text field and store it in a variable
@@ -43,7 +43,7 @@ echo
 echo "************************************************** "
 echo "                     __  __                    _   "
 echo "    ____  ________  / /_/ /___  __      ____ _(_)  "
-echo     / __ \/ ___/ _ \/ __/ __/ / / /_____/ __ `/ / 
+echo `   / __ \/ ___/ _ \/ __/ __/ / / /_____/ __ `/ /   `
 echo "  / /_/ / /  /  __/ /_/ /_/ /_/ /_____/ /_/ / /    "
 echo " / .___/_/   \___/\__/\__/\__, /      \__,_/_/     "
 echo "/_/                      /____/                    "
@@ -55,7 +55,7 @@ echo
 echo "************************************************** "
 echo "                     __  __                    _   "
 echo "    ____  ________  / /_/ /___  __      ____ _(_)  "
-echo     / __ \/ ___/ _ \/ __/ __/ / / /_____/ __ `/ / 
+echo `   / __ \/ ___/ _ \/ __/ __/ / / /_____/ __ `/ /   `
 echo "  / /_/ / /  /  __/ /_/ /_/ /_/ /_____/ /_/ / /    "
 echo " / .___/_/   \___/\__/\__/\__, /      \__,_/_/     "
 echo "/_/                      /____/                    "

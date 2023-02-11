@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 
-# lowercase - remaps directories and files to kebab-case
-# kebab-case was chosen as it is not commonly associated with
-# programming languages, so linux filesystem organising seems nice
-# intent is to simplify and codify filesystem navigation
+# lowercase remaps directories and files to use kebab-case naming convention. 
+# the kebab-case format was selected as it is not commonly associated with programming languages, making it a convenient choice for organizing a linux filesystem
+# The purpose of the script is to simplify and standardize navigation within the filesystem.
 
 import os
 import sys

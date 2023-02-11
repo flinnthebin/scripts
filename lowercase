@@ -30,11 +30,13 @@ def rename(current_name, new_name):
   except PermissionError as e:
     print("Permission Error: ", e)  
 
-def rename_all(directory, dirdepth=0):
+def rename_all(directory, dirdepth=0, renamed={}):
   try:
     # rename root directory
     new_name = directory.strip().lower().replace(" ", "-").replace("_", "-")
-    rename(directory, new_name)
+    if directory not in renamed:
+      rename(directory, new_name)
+      renamed[directory] = new_name
     directory = new_name
   except PermissionError as e:
     print("Permission Error: ", e)
@@ -45,14 +47,18 @@ def rename_all(directory, dirdepth=0):
     for dirname in dirnames:
       old_name = os.path.join(dirpath, dirname)
       new_name = os.path.join(dirpath, dirname.strip().lower().replace(" ", "-").replace("_", "-"))
-      rename(old_name, new_name)
+      if old_name not in renamed:
+        rename(old_name, new_name)
+        renamed[old_name] = new_name
       if dirdepth < 5:
-        rename_all(new_name, dirdepth=dirdepth + 1)
+        rename_all(new_name, dirdepth=dirdepth + 1, renamed=renamed)
     for filename in filenames:
       old_name = os.path.join(dirpath, filename)
       base, ext = os.path.splitext(filename)
       new_name = os.path.join(dirpath, base.strip().lower().replace(" ", "-").replace("_", "-") + ext)
-      rename(old_name, new_name)
+      if old_name not in renamed:
+        rename(old_name, new_name)
+        renamed[old_name] = new_name
 
 if __name__ == "__main__":
   if usage():

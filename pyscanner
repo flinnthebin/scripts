@@ -4,21 +4,28 @@ import argparse
 from pythonping import ping
 
 class PingSweep:
-    def scan(self, target):
+    def ping(self, target):
         print("Performing a ping sweep on target:", target)
         # Code to perform a ping sweep
-        response = ping.quiet_ping(target)
-        if response[0] is not None:
-            return True
-        else:
-            return False
+        response = ping(target, verbose=True)
+        return response
+        
+    def ping_sweep(self, start_ip, end_ip, timeout=1, verbose=False):
+        results= {}
+        for i in range(start_ip, end_ip + 1):
+            target_ip = f"192.168.0.{i}"
+            response = ping(target_ip, timeout=timeout, verbose=verbose)
+            results[target_ip] = response.success()
+        return results
 
 class PortScan:
+    # TODO: implement network scanning using scapy, socket or pyshark libs
     def scan(self, target):
         # Code to perform a port scan
         print("Performing a port scan on target:", target)
 
 class SNMPScan:
+    # TODO: implement SNMP scanning using pysnmp or snmpy
     def scan(self, target):
         # Code to perform an SNMP scan
         print("Performing an SNMP scan on target:", target)
@@ -33,7 +40,7 @@ if __name__ == "__main__":
 
     if args.pingsweep:
         scan = PingSweep()
-        scan.scan(args.target)
+        scan.ping(args.target)
     elif args.portscan:
         scan = PortScan()
         scan.scan(args.target)

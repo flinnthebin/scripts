@@ -7,7 +7,7 @@ SYNOPSISsweep
        pyscanner [OPTIONS] [TARGETS]
 
 DESCRIPTION
-       pyscanner is a native python scanning tool that allows you to perform various network scanning operations, such as ping sweeps and port scans. The tool is designed to be simple and efficient, making it a great choice for network administrators and security professionals who need to quickly assess the state of their network.
+       pyscanner is a python scanning tool that allows you to perform various network scanning operations, such as ping sweeps and port scans. The tool is designed to be simple and efficient, making it a great choice for network administrators and security professionals who need to quickly assess the state of their network.
 
 OPTIONS
        -sw ping sweep

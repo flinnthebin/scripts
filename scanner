@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+
+import argparse
+
+class PingSweep:
+    def scan(self, target):
+        # Code to perform a ping sweep
+        print("Performing a ping sweep on target:", target)
+
+class PortScan:
+    def scan(self, target):
+        # Code to perform a port scan
+        print("Performing a port scan on target:", target)
+
+class SNMPScan:
+    def scan(self, target):
+        # Code to perform an SNMP scan
+        print("Performing an SNMP scan on target:", target)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-sw", "--pingsweep", help="Perform a ping sweep", action="store_true")
+    parser.add_argument("-ps", "--portscan", help="Perform a port scan", action="store_true")
+    parser.add_argument("-sn", "--snmpscan", help="Perform an SNMP scan", action="store_true")
+    parser.add_argument("target", help="Target IP or hostname")
+    args = parser.parse_args()
+
+    if args.pingsweep:
+        scan = PingSweep()
+        scan.scan(args.target)
+    elif args.portscan:
+        scan = PortScan()
+        scan.scan(args.target)
+    elif args.snmpscan:
+        scan = SNMPScan()
+        scan.scan(args.target)
+    else:
+        print("No scanning technique specified. Use -h for help.")

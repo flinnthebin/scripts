@@ -1,3 +1,0 @@
-#!/bin/bash
-
-recordmydesktop --device=sysdefault:CARD=Generic --channels=2

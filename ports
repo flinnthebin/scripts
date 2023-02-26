@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# usage w/ nmap:
+# nmap -p$ports -sC -sV <target>
+
+# Check for correct usage
+if [ "$#" -ne 1 ]; then
+  echo "Usage: ports <target>"
+  exit 1
+fi
+
+# Declare ports variable
+target=$1
+ports=$(nmap -p- --min-rate=1000 -T4 $target | grep '^[0-9]' | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)
+
+# Output ports variable
+echo "Open ports on $target: $ports"
